@@ -2153,7 +2153,7 @@ a.btnBbc.history {
 	top: 0;
 	left: 0;
 	position: absolute;
-	display: none
+	display: block;
 }
 
 .topBar .back .icon {

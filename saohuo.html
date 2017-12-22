@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>扫货特卖</title>
+<meta charset="utf-8">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="bundles/baseStyles.css?v=ShxrDq0TwPSoX86C_3BjAhDlWyPsZ0m1-xMXM2i5vpg1"/>
+<script type="text/javascript" src="bundles/baseScripts.js?v=28tgSWY0rL22Dancb5AxG3xGVK37K2nU3E62SXx5oaY1"></script>
+<script type="text/javascript" src="bundles/vue.js?v=sbRGonuaAxaGe5lssR8HbadhTFlwmS4O78OlSsMZRH81"></script>
+<script type="text/javascript" src="bundles/common.js?v=MmFkBTCbV-7EXfIwu_PU0k_rEBU1v_SeIueB1gR4exc1"></script>
+<script type="text/javascript" src="bundles/global.js?v=GF4q86rcgkq-1omFrzV8PvMpsYJYcao3tiO6enQawjU1"></script>
+<script type="text/javascript" src="bundles/tingyun.js?v=G6_UzQ6oSWhZCsWb-GvfG8YDLnaRNlUpYwfyQXZh7Po1"></script>
+<script type="text/javascript" src="bundles/weixin.js?v=rU6xLk5lqY7aesqXQvZlWG0nHgQCF47toqQ2568omFw1"></script>
+<script type="text/javascript" src="bundles/webStorageCache.js?v=hmTpKCEBw3EQZHuWmph-Q1yWjJ-0XYuZPZCxO7UCFiI1"></script>
+<style>
+            #pf {
+                z-index:99!important;
+            }
+            nav.pf li{
+                width: 25%;
+            }
+</style>
+</style>
+<link rel="stylesheet" href="Resources/plugin/Swiper-3.4.2/css/swiper.min.css?_v=2">
+<script type="text/javascript" src="https://3gimg.qq.com/mig_op/beacon/js/beacon_release_s.js?vc=1.0.1&appkey=JS1F2ZPB2335HQ"></script>
+<script type="text/javascript" src="Resources/plugin/linq-3.0.5/linq.min.js?_v=2"></script>
+<script type="text/javascript" src="Resources/plugin/jQuery.downCount/jquery.downCount.js"></script>
+<script type="text/javascript" src="Resources/plugin/moment-2.18.1/moment.js"></script>
+<script src="Resources/plugin/Swiper-3.4.2/js/swiper.min.js?_v=2"></script>
+<script type="text/javascript" src="Resources/plugin/jQuery.downCount/jquery.downCount.js"></script>
+<style>
+        .redActive {
+            background: url(Content/img/now.png) no-repeat;
+            background-size: 250px 100px !important;
+            color: #fff !important;
+        }
+        .grayActive {
+            background: url(Content/img/noStart.png) no-repeat;
+            background-size: 250px 100px !important;
+            color: #fff !important;
+        }
+        .miaoSha .tab span {
+            z-index: 1;
+        }
+        .miaoSha .title .timesLine .time {
+            width: 410px !important;
+        }
+        #noDataView {
+            text-align: center !important;
+            height: 40px !important;
+            color: #b2b2b2 !important;
+            margin-top: 40px !important;
+            margin-bottom: 20px !important;
+            line-height: 40px !important;
+        }
+        .miaoSha .content .msproductList a .mmp .discount {
+            background-image: url(Content/img/labelling@2x.png);
+            background-color: unset !important;
+        }
+        .miaoSha .content .msproductList a .productMessage .numAddCart .num {
+            border-radius: 85px 85px 85px 85px !important;
+        }
+        .miaoSha .tab .activeRed i {
+            border-top: 28px solid #ff5252;
+        }
+        .miaoSha .tab .activeGray i {
+            border-top: 28px solid #7b7b7b;
+        }
+        .miaoSha .tab span i {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        .soldOut{
+            width:150px;
+        }
+        .activeIcon img{
+            width:100%;
+        }
+</style>
+</head>
+<body class="show">
+<div id="contentBody" class="wrapper navMask topMask">
+    <!-- 头部 -->
+    <div class="topBar">
+        <h4>扫货特卖</h4>
+    </div>
+     <!-- banner -->
+    <div class="swiper-container swiperBanner swiper-container-horizontal">
+        <div class="swiper-wrapper" style="transform: translate3d(-2250px, 0px, 0px); transition-duration: 0ms;">
+            <div class="swiper-slide swiper-slide-duplicate swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" style="width: 750px;">
+                <a href="javascript:void(0);"><img src="https://cdn.saohuo7.com/ui_element_images/171017/916b133e-4ec7-40f7-9b33-9c07f99d43a3.jpg" alt="SLIDE_1" class="center-block img-responsive"></a>
+            </div>
+            <div class="swiper-slide swiper-slide-duplicate-active" data-swiper-slide-index="0" style="width: 750px;">
+                <a href="https://m2.saohuo7.com/products/productpromotion?id=272">
+                <img src="https://cdn.saohuo7.com/ui_element_images/171212/4a367952-77fe-4da7-a393-882decabda6a.jpg" alt="SLIDE_0" class="center-block img-responsive">
+                </a>
+            </div>
+            <div class="swiper-slide swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="1" style="width: 750px;">
+                <a href="javascript:void(0);">
+                <img src="https://cdn.saohuo7.com/ui_element_images/171017/916b133e-4ec7-40f7-9b33-9c07f99d43a3.jpg" alt="SLIDE_1" class="center-block img-responsive">
+                </a>
+            </div>
+            <div class="swiper-slide swiper-slide-duplicate swiper-slide-active" data-swiper-slide-index="0" style="width: 750px;">
+                <a href="https://m2.saohuo7.com/products/productpromotion?id=272">
+                <img src="https://cdn.saohuo7.com/ui_element_images/171212/4a367952-77fe-4da7-a393-882decabda6a.jpg" alt="SLIDE_0" class="center-block img-responsive">
+                </a>
+            </div>
+        </div>
+        <div id="swiper-pagination" class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
+            <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+            <span class="swiper-pagination-bullet"></span>
+        </div>
+    </div>
+    <div class="characteristicIcon">
+        <img src="Content/img/features1.png" alt="" style="width: 100%;">
+    </div>
+    <!---->
+    <div class="indexIcon clearfix indexIconLength3">
+        <a href="huodong.html">
+        <img src="https://cdn.saohuo7.com/ui_element_images/171109/3ad6ad3e-a56f-431f-ad4e-2f270d79b1b0.jpg" alt="">
+        </a>
+        <a href="huodong.html">
+        <img src="https://cdn.saohuo7.com/ui_element_images/171023/acbdfecd-b54b-4764-9cfe-e81945a659d5.jpg" alt="">
+        </a>
+        <a href="huodong.html">
+        <img src="https://cdn.saohuo7.com/ui_element_images/171211/77a1da45-d539-46a9-b091-1e5068bb4121.jpg" alt="">
+        </a>
+    </div>
+    <div class="miaoSha">
+        
+        
+        <div class="content">
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171215/ab12ce45-6a0f-497d-8a65-0ea8cd66df8c.jpg" alt="" class="productImg"><!----><span class="discount">8.0折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            芭妮兰卸妆膏100ml
+                    </p>
+                    <p class="mess">
+                        即使再浓重的妆容都可以3分钟搞定...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥118.40</i><span>￥148.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 99%;"></i>已抢2312件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171215/18790a40-8b92-46e5-83f3-c9704c39c0f2.jpg" alt="" class="productImg"><!----><span class="discount">7.0折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            蒂佳婷药丸面膜 绿色5g*5片
+                    </p>
+                    <p class="mess">
+                        韩国人超喜欢用的一款面膜，在韩...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥89.60</i><span>￥128.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 100%;"></i>已抢1525件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171215/7465bd61-0e1d-4f54-a041-cb3b4a0579b9.jpg" alt="" class="productImg"><!----><span class="discount">8.4折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            兰芝 睡眠面膜 70ml
+                    </p>
+                    <p class="mess">
+                        补水锁水的超强能力，一夜还你水...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥165.00</i><span>￥195.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 99%;"></i>已抢138件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171215/6b8fb676-e762-4f55-afd3-b13c9b0a7585.jpg" alt="" class="productImg"><img src="/Content/img/qiangwan.png" class="soldOut"><span class="discount">5.2折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            FOREO Luna play露娜玩趣版电...
+                    </p>
+                    <p class="mess">
+                        随身携带玩趣版，非常适合经常需...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥169.50</i><span>￥322.27</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i style="width: 100%; border-radius: 85px;"></i>已抢光</span><!---->
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171019/52d1d872-0676-4368-998b-b115029f81d7.jpg" alt="" class="productImg"><!----><span class="discount">2.0折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            【600g*2盒】马奇新新欢密斯...
+                    </p>
+                    <p class="mess">
+                        马奇新新什锦饼干，马来西亚原装...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥23.90</i><span>￥118.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 99%;"></i>已抢2135件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171126/7f382502-c20b-49ff-95b3-fc2047cb73a0.jpg" alt="" class="productImg"><!----><span class="discount">2.1折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            悠诗诗速溶咖啡粉114号90g
+                    </p>
+                    <p class="mess">
+                        选自日本优良咖啡豆，手工挑拣。...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥42.00</i><span>￥199.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 99%;"></i>已抢2511件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171213/c54b6360-3e95-4a4c-ba3c-25896d5f236e.jpg" alt="" class="productImg"><!----><span class="discount">3.7折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            凯尔森黄油饼干454g（绿色圣...
+                    </p>
+                    <p class="mess">
+                        使用优质黄油和各种美妙成分烘制...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥18.50</i><span>￥49.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 99%;"></i>已抢2845件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171017/9de50745-2ba0-49dc-852f-7136749c082a.jpg" alt="" class="productImg"><!----><span class="discount">7.5折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            【大哥】大哥牌 虾味花生豆2...
+                    </p>
+                    <p class="mess">
+                        酥酥脆脆，非常可口。外出旅游、...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥33.76</i><span>￥44.70</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 99%;"></i>已抢2024件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/170907/18cb527d-aa26-485c-abc2-fce213a5cd76.jpg" alt="" class="productImg"><!----><span class="discount">4.3折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            【32.4g*4盒】小老板牌冬阴功...
+                    </p>
+                    <p class="mess">
+                        没吃过泰国小老板叫什么爱吃海苔...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥34.56</i><span>￥79.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 99%;"></i>已抢2732件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171021/8d44de99-5484-41e4-9337-a04c40a3edb2.jpg" alt="" class="productImg"><!----><span class="discount">5.0折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            【80g*3包】张君雅小妹妹休闲...
+                    </p>
+                    <p class="mess">
+                        嘴巴就是不想停下来，张君雅小妹...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥18.00</i><span>￥36.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 100%;"></i>已抢2841件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171103/2ea2d111-b75a-4690-940f-ea949704ab2e.jpg" alt="" class="productImg"><!----><span class="discount">6.5折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            【190g*2罐】桑戈利亚葡萄柚...
+                    </p>
+                    <p class="mess">
+                        强烈推荐的罐装浓缩还原果汁，酸...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥14.50</i><span>￥22.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 100%;"></i>已抢2832件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171020/2176666b-71a3-485f-9e32-7cc8f742e5ce.jpg" alt="" class="productImg"><!----><span class="discount">4.8折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            【32g*3包】小老板牌调味海苔...
+                    </p>
+                    <p class="mess">
+                        赞赞的解馋神物，好吃的海苔，去...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥21.12</i><span>￥43.90</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 97%;"></i>已抢1287件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171017/6538300f-aa41-486b-aa34-21f5ac5d1f82.jpg" alt="" class="productImg"><!----><span class="discount">7.2折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            【3罐*150g】 EDO薯片番茄、...
+                    </p>
+                    <p class="mess">
+                        EDO出的巨浪大切薯片，马来西亚产...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥25.68</i><span>￥35.40</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 99%;"></i>已抢2987件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="msproductList clearfl">
+                <a href="product.html">
+                <div class="mmp">
+                    <img src="https://cdn.saohuo7.com/product_image_files/171015/4a617537-345f-4ba2-a35f-6d237f749e88.jpg" alt="" class="productImg"><!----><span class="discount">5.2折</span>
+                </div>
+                <div class="productMessage">
+                    <p class="productName">
+                        <!---->
+                            乐天芒果汁饮料180g*15瓶/整...
+                    </p>
+                    <p class="mess">
+                        乐天芒果汁选用质量优良的生长于...
+                    </p>
+                    <p class="price">
+                        限时价<i>￥26.24</i><span>￥50.00</span>
+                    </p>
+                    <div class="numAddCart clearfl">
+                        <span class="num"><i class="speed" style="color: rgb(255, 255, 255); width: 97%;"></i>已抢2197件</span><span class="cart addCart"></span>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="noDataView">
+        已经到底啦
+    </div>
+</div>
+<nav id="pf" class="pf">
+<ul>
+    <li class="active"><a href="saohuo.html"><i class="icon iconHome"></i>
+    <h4>首页</h4>
+    </a></li>
+    <li class=""><a href="cart.html"><i class="icon iconCart"></i>
+    <h4>购物车</h4>
+    </a><!----></li>
+    <li class=""><a href="record.html"><i class="icon iconMy"></i>
+    <h4>业绩</h4>
+    </a><!----></li>
+    <li class=""><a href="me.html"><i class="icon iconMy"></i>
+    <h4>我的</h4>
+    </a></li>
+</ul>
+</nav>
+<style>
+#noDataView{text-align: center;height: 95px;color: #b2b2b2;margin-bottom: 30px; line-height: 95px;}.bottomBtn{bottom: 30px;}.pf{left: 50%; transform: translateX(-50%);  -webkit-transform: translateX(-50%);}
+</style>
+</body>
+</html>

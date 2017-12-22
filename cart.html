@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>购物车</title>
+<meta charset="utf-8">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=750px, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="bundles/baseStyles.css?v=ShxrDq0TwPSoX86C_3BjAhDlWyPsZ0m1-xMXM2i5vpg1"/>
+<script type="text/javascript" src="bundles/baseScripts.js?v=28tgSWY0rL22Dancb5AxG3xGVK37K2nU3E62SXx5oaY1"></script>
+<script type="text/javascript" src="bundles/vue.js?v=sbRGonuaAxaGe5lssR8HbadhTFlwmS4O78OlSsMZRH81"></script>
+<script type="text/javascript" src="bundles/common.js?v=MmFkBTCbV-7EXfIwu_PU0k_rEBU1v_SeIueB1gR4exc1"></script>
+<script type="text/javascript" src="bundles/global.js?v=GF4q86rcgkq-1omFrzV8PvMpsYJYcao3tiO6enQawjU1"></script>
+<script type="text/javascript" src="bundles/tingyun.js?v=G6_UzQ6oSWhZCsWb-GvfG8YDLnaRNlUpYwfyQXZh7Po1"></script>
+<script type="text/javascript" src="bundles/weixin.js?v=rU6xLk5lqY7aesqXQvZlWG0nHgQCF47toqQ2568omFw1"></script>
+<script type="text/javascript" src="bundles/webStorageCache.js?v=hmTpKCEBw3EQZHuWmph-Q1yWjJ-0XYuZPZCxO7UCFiI1"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<style>
+            #pf {
+                z-index:99!important;
+            }
+            nav.pf li{
+                width: 25%;
+            }
+</style>
+
+<script type="text/javascript" src="Resources/plugin/moment-2.18.1/moment.js"></script>
+<script type="text/javascript" src="Resources/plugin/linq-2.2.0.2/jquery.linq.min.js?_v=2"></script>
+<script type="text/javascript" src="Resources/plugin/jQuery.downCount/jquery.downCount.js"></script>
+<style>
+        .pageEmpty {
+            padding-bottom: 250px;
+        }
+        .text .notCustomer {
+            position: absolute;
+            left: 0;
+            top: 49px;
+            padding: 6px 7px;
+            background-color: #f4f4f4;
+            font-size: 18px;
+            color: #b2b2b2;
+        }
+        .jiajian input {
+            float: left;
+            display: block;
+            width: 103px;
+            height: 76px;
+            text-align: center;
+            line-height: 76px;
+            border: 1px solid #c8c8c8;
+        }
+        .buy_btn {
+            margin-top: 58px;
+        }
+        .cartList {
+            border-bottom: none;
+        }
+        .Modular {
+            margin-bottom: 20px;
+        }
+        .cartList li .text .operate .delete .icon {
+            width: 42px;
+            height: 42px;
+            margin: 9px;
+            background-image: url("/Content/img/SC_delete.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: block;
+            background-position: 0;
+        }
+        .orderPanyName i {
+            margin-right: 10px;
+        }
+        .cartRem .line {
+            height: 2px;
+            background: #cecece;
+            top: 39px;
+            width: 95%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+</style>
+</head>
+<body class="show">
+<div id="contentBody" class="wrapper cartMask topMask">
+    <div class="loadCircle" style="display: none;">
+        <div class="loader">
+            Loading...
+        </div>
+    </div>
+    <div class="topBar">
+        <h4>购物车</h4>
+    </div>
+    <div class="Modular">
+        <div class="orderPanyName">
+            <div class="checkbox">
+                <label for="store_889371540439695360"><input type="checkbox" id="store_889371540439695360" name="storeCheck" data-storeid="889371540439695360"></label>
+            </div>
+            <span><!---->扫货自营</span>
+            <div class="store_r">
+                <span style="font-size: 24px;">已免运费</span>
+            </div>
+        </div>
+        <div class="cartActive">
+            <span>扫货限时购</span>
+            <div class="name">
+                <div id="a1" data-time="12/18/2017 19:59:59" class="time">
+                    距优惠结束仅剩：<em class="hours">03</em>：<em class="minutes">31</em>：<em class="seconds">20</em>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <div class="cartList clearfix">
+            <ul>
+                <li>
+                <div class="checkbox">
+                    <label for="889371540439695360_925994162476548096"><input type="checkbox" name="product" id="889371540439695360_925994162476548096" data-storeid="889371540439695360" data-productid="925994162476548096" value="889371540439695360_925994162476548096"></label>
+                </div>
+                <div class="img">
+                    <a href="/Products/Product?id=925994162476548096"><img src="https://cdn.saohuo7.com/product_image_files/171215/ab12ce45-6a0f-497d-8a65-0ea8cd66df8c.jpg" alt="PI_925994162476548096" href="/Products/product?id=925994162476548096"></a>
+                </div>
+                <div class="text">
+                    <!---->
+                    <div class="name">
+                        芭妮兰卸妆膏100ml
+                    </div>
+                    <div class="operate">
+                        <div class="price">
+                            ¥118.40
+                        </div>
+                        <a href="javascript:void(0);" class="delete"><i class="icon"></i></a><!---->
+                        <div class="numGuoup">
+                            <a href="javascript:void(0);" class="cut">-</a><input type="text" readonly="readonly"><a href="javascript:void(0);" class="plus">+</a>
+                        </div>
+                        <!---->
+                    </div>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!---->
+    <div class="cartSafe">
+        <p>
+            <a href="/common/appurl">下载APP</a> 即享更多活动优惠
+        </p>
+    </div>
+    <div class="cartBar">
+        <div class="price">
+            <label for="checkAll_"><input type="checkbox" id="checkAll_" name="checkAll">
+                全选
+            </label>
+            <h3>合计：<span>￥118.40</span></h3>
+        </div>
+        <a href="javascript:;" class="cartBtn">去结算</a>
+    </div>
+    <div class="eat_tanBox">
+        <div class="buy_num">
+            <span class="_close"><img src="/Content/img/_close.png" alt=""></span>
+            <h2 class="nm">修改商品数量</h2>
+            <div class="jiajian">
+                <i class="jian">-</i><input type="number" value="0"><i class="jia">+</i>
+            </div>
+            <!---->
+            <div class="buy_btn">
+                确定
+            </div>
+        </div>
+    </div>
+    <!---->
+</div>
+<nav id="pf" class="pf">
+<ul>
+    <li class=""><a href="saohuo.html"><i class="icon iconHome"></i>
+    <h4>首页</h4>
+    </a></li>
+    <li class="active"><a href="#"><i class="icon iconCart"></i>
+    <h4>购物车</h4>
+    </a><span id="cartAmount">1</span></li>
+    <li class=""><a href="record.html"><i class="icon iconMy"></i>
+    <h4>业绩</h4>
+    </a></li>
+    <li class=""><a href="me.html"><i class="icon iconMy"></i>
+    <h4>我的</h4>
+    </a></li>
+</ul>
+</nav>
+<style>
+#noDataView{text-align: center;height: 95px;color: #b2b2b2;margin-bottom: 30px; line-height: 95px;}.bottomBtn{bottom: 30px;}.pf{left: 50%; transform: translateX(-50%);  -webkit-transform: translateX(-50%);}
+</style>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>订单</title>
+<meta charset="utf-8">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=750px, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="bundles/baseStyles.css?v=ShxrDq0TwPSoX86C_3BjAhDlWyPsZ0m1-xMXM2i5vpg1"/>
+<script type="text/javascript" src="bundles/baseScripts.js?v=28tgSWY0rL22Dancb5AxG3xGVK37K2nU3E62SXx5oaY1"></script>
+<script type="text/javascript" src="bundles/vue.js?v=sbRGonuaAxaGe5lssR8HbadhTFlwmS4O78OlSsMZRH81"></script>
+<script type="text/javascript" src="bundles/common.js?v=MmFkBTCbV-7EXfIwu_PU0k_rEBU1v_SeIueB1gR4exc1"></script>
+<script type="text/javascript" src="bundles/global.js?v=GF4q86rcgkq-1omFrzV8PvMpsYJYcao3tiO6enQawjU1"></script>
+<script type="text/javascript" src="bundles/tingyun.js?v=G6_UzQ6oSWhZCsWb-GvfG8YDLnaRNlUpYwfyQXZh7Po1"></script>
+<script type="text/javascript" src="bundles/weixin.js?v=rU6xLk5lqY7aesqXQvZlWG0nHgQCF47toqQ2568omFw1"></script>
+<script type="text/javascript" src="bundles/webStorageCache.js?v=hmTpKCEBw3EQZHuWmph-Q1yWjJ-0XYuZPZCxO7UCFiI1"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<style>
+            #pf {
+                z-index:99!important;
+            }
+</style>
+<style>
+        .name span {
+            position: relative;
+            top: -3px;
+        }
+        .productList li .name {
+            height: 82px;
+            line-height: 41px;
+        }
+        .wrapper {
+            padding-top: 90px !important;
+        }
+        .topNav {
+            height: 90px;
+            top: 91px;
+            width: 100%;
+            max-width: 750px;
+            min-width: 300px;
+            background: #fff;
+            border-bottom: 1px solid #d9d9d9;
+            z-index: 100;
+            position: fixed;
+        }
+        .topNav ul{
+            line-height: 90px;
+            height: 90px;
+            display: list-item;
+            overflow-y: none;
+            overflow:scroll;
+        }
+        .topNav .rowc{
+            line-height: 90px;
+            height: 90px;
+            display: list-item;
+        }
+        .topNav li{
+            width:120px;
+            line-height: 90px;
+            color: #000;
+            text-align: center;
+            font-size: 28px;
+            float: left;
+        }
+        .shop-scroll-wrapper{
+                position: relative;
+                bottom: auto
+        }
+        .shop-active{
+            color: #ff5252;
+            border-bottom: 2px solid #007aff;
+            background: none;
+        }
+        .font_nav1{
+            font-size: 22px;
+        }
+        .nav_search input{
+            background: none;
+            border: none;
+            width: 80%;
+            height: 50px;
+            margin: 7.5px auto;
+            font-size: 25px;
+            line-height: 50px;
+        }
+</style>
+</head>
+<body class="show">
+<div id="contentBody" class="wrapper navMask topMask">
+    <div class="loadCircle" style="display: none;">
+        <div class="loader">
+            Loading...
+        </div>
+    </div>
+    <div class="topBar">
+        <h4>我的订单</h4>
+        <a href="javascript:window.history.back(-1);" class="back"><i class="icon"></i></a>
+    </div>
+    <div class="orderBox">
+        <div class="orderTitle">
+            <a class="">全部订单</a>
+            <a class="active">待付款</a>
+            <a class="">待发货</a>
+            <a class="">待收货</a>
+            <a class="">已完成</a>
+            <a class="">已取消</a>
+        </div>
+        <div id="orderContent" class="orderContent" style="display: block;">
+            <div class="orderList">
+                <section class="active" style="background-image: unset;">
+                <div class="orderPanyName">
+                    <i></i><span>扫货自营</span>
+                </div>
+                <div class="info">
+                    订单编号： 261420605922877442<span>待付款</span>
+                </div>
+                <div href="javascript:void(0);" class="product">
+                    <a href="#">
+                    <div class="img">
+                        <img src="https://cdn.saohuo7.com/product_image_files/171215/ab12ce45-6a0f-497d-8a65-0ea8cd66df8c.jpg">
+                    </div>
+                    <div class="textNum">
+                                共1件
+                    </div>
+                    <i class="rightArrow"></i></a>
+                </div>
+                <div class="bar">
+                        实付金额：
+                    <span>￥118.40</span><a href="#" class="btn">立即付款</a><a href="javascript:void(0);" class="btn close black">取消订单</a>
+                </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="loadBottom" style="display: none;">
+        <div class="loading">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+</div>
+<style>
+#noDataView{text-align: center;height: 95px;color: #b2b2b2;margin-bottom: 30px; line-height: 95px;}.bottomBtn{bottom: 30px;}.pf{left: 50%; transform: translateX(-50%);  -webkit-transform: translateX(-50%);}
+</style>
+</body>
+</html>

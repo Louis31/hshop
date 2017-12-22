@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>c</title>
+<meta charset="utf-8">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=750px, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="bundles/baseStyles.css?v=ShxrDq0TwPSoX86C_3BjAhDlWyPsZ0m1-xMXM2i5vpg1"/>
+<script type="text/javascript" src="bundles/baseScripts.js?v=28tgSWY0rL22Dancb5AxG3xGVK37K2nU3E62SXx5oaY1"></script>
+<script type="text/javascript" src="bundles/vue.js?v=sbRGonuaAxaGe5lssR8HbadhTFlwmS4O78OlSsMZRH81"></script>
+<script type="text/javascript" src="bundles/common.js?v=MmFkBTCbV-7EXfIwu_PU0k_rEBU1v_SeIueB1gR4exc1"></script>
+<script type="text/javascript" src="bundles/global.js?v=GF4q86rcgkq-1omFrzV8PvMpsYJYcao3tiO6enQawjU1"></script>
+<script type="text/javascript" src="bundles/tingyun.js?v=G6_UzQ6oSWhZCsWb-GvfG8YDLnaRNlUpYwfyQXZh7Po1"></script>
+<script type="text/javascript" src="bundles/weixin.js?v=rU6xLk5lqY7aesqXQvZlWG0nHgQCF47toqQ2568omFw1"></script>
+<script type="text/javascript" src="bundles/webStorageCache.js?v=hmTpKCEBw3EQZHuWmph-Q1yWjJ-0XYuZPZCxO7UCFiI1"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<style>
+            #pf {
+                z-index:99!important;
+            }
+</style>
+<script type="text/javascript" src="/Resources/plugin/moment-2.18.1/moment.js"></script>
+<script type="text/javascript" src="/Resources/plugin/linq-2.2.0.2/jquery.linq.min.js?_v=2"></script>
+<script type="text/javascript" src="/Resources/plugin/jQuery.downCount/jquery.downCount.js"></script>
+<script src="/Resources/plugin/Swiper-3.4.2/js/swiper.min.js?_v=2"></script>
+<link rel="stylesheet" href="/Resources/plugin/Swiper-3.4.2/css/swiper.min.css?_v=2">
+<style>
+        .productDetail .detailImg .term {
+            z-index: 99 !important;
+        }
+        .topBar {
+            border-bottom: unset !important;
+        }
+        .wrapper {
+            background-color: #fff !important;
+        }
+        .eat_topBar {
+            color: rgba(0,0,0,0);
+        }
+        .topMask {
+            padding-top: unset !important;
+        }
+        .text .notCustomer {
+            position: absolute;
+            left: 0;
+            top: 49px;
+            padding: 6px 7px;
+            background-color: #f4f4f4;
+            font-size: 18px;
+            color: #b2b2b2;
+        }
+        .jiajian input {
+            float: left;
+            display: block;
+            width: 103px;
+            height: 76px;
+            text-align: center;
+            line-height: 76px;
+            border: 1px solid #c8c8c8;
+        }
+        .buy_btn {
+            margin-top: 58px;
+        }
+        .productDetail .detailInfo .cankao span {
+            width: 49%;
+        }
+        .saleKnow {
+            background-color: #ffffff;
+            padding: 0 30px;
+            margin-bottom: 20px;
+        }
+        .saletitle {
+            width: 690px;
+            margin: 0 auto;
+            border-bottom: 1px solid #E3E3E3;
+            height: 100px;
+            line-height: 100px;
+            font-size: 30px;
+            color: #272727;
+        }
+        .salelist {
+            padding: 20px 0;
+            width: 100%;
+            font-size: 26px;
+            color: #272727;
+            line-height: 45px;
+        }
+</style>
+</head>
+<body class="show">
+<div id="contentBody" class="wrapper navMask topMask">
+    <div class="topBar eat_topBar" style="background: rgba(255, 255, 255, 0); color: rgba(0, 0, 0, 0);">
+        <h4>商品详情</h4>
+        <a href="javascript:window.history.back(-1);" class="back"><i class="icon"></i></a><a href="javascript:;" class="fenxiang"></a>
+    </div>
+    <!---->
+    <div class="productDetail">
+        <div class="detailImg eat_detailImg">
+            <div class="swiper-container swiperDetail swiper-container-horizontal">
+                <div class="swiper-wrapper" style="transform: translate3d(-2250px, 0px, 0px); transition-duration: 500ms;">
+                    <div class="swiper-slide swiper-slide-duplicate swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" style="width: 750px;">
+                        <img src="https://cdn.saohuo7.com/product_image_files/171215/df422c3d-5598-4e48-b090-b53df91c88e7.jpg" alt="商品图片">
+                    </div>
+                    <div class="swiper-slide swiper-slide-duplicate-active" data-swiper-slide-index="0" style="width: 750px;">
+                        <img src="https://cdn.saohuo7.com/product_image_files/171215/ab12ce45-6a0f-497d-8a65-0ea8cd66df8c.jpg" alt="商品图片">
+                    </div>
+                    <div class="swiper-slide swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="1" style="width: 750px;">
+                        <img src="https://cdn.saohuo7.com/product_image_files/171215/df422c3d-5598-4e48-b090-b53df91c88e7.jpg" alt="商品图片">
+                    </div>
+                    <div class="swiper-slide swiper-slide-duplicate swiper-slide-active" data-swiper-slide-index="0" style="width: 750px;">
+                        <img src="https://cdn.saohuo7.com/product_image_files/171215/ab12ce45-6a0f-497d-8a65-0ea8cd66df8c.jpg" alt="商品图片">
+                    </div>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <div class="detailInfo">
+            <div class="name">
+                <span>8.0折</span>韩国 | 芭妮兰卸妆膏100ml
+            </div>
+            <div class="price">
+                ¥118.40
+                &nbsp;
+                <del>¥148.00</del>
+            </div>
+            <div class="cankao clearfix">
+                <span>某东超市：无</span><span style="width: 2px; border-left: 2px solid rgb(204, 204, 204); height: 80%; margin-top: 14px;"></span><span>某猫超市：￥148.00</span>
+            </div>
+            <!----><!----><a href="javascript:void(0);">
+            <div class="sale">
+                <span>扫货限时购</span>
+                <div id="a1" data-time="12/18/2017 19:59:59" class="time">
+                    距优惠结束仅剩：<em class="hours">03</em>：<em class="minutes">14</em>：<em class="seconds">23</em>
+                </div>
+                <!---->
+            </div>
+            </a>
+            <div class="sale saleSale spsm" style="color: rgb(147, 147, 147); border-bottom: 1px solid rgb(227, 227, 227);">
+                <ul>
+                    <li><i></i>&nbsp;&nbsp;正品优选</li>
+                    <li><i></i>&nbsp;&nbsp;超级折扣</li>
+                    <li><i></i>&nbsp;&nbsp;赔付保障</li>
+                </ul>
+                <i class="dayu"><img src="/Content/img/dayu.png" alt=""></i>
+            </div>
+        </div>
+        <!----><!---->
+        <div class="detailDes">
+            <h3>商品信息</h3>
+            <p>
+                <span>【品　　牌】</span>芭妮兰
+            </p>
+            <p>
+                <span>【规　　格】</span>100ml
+            </p>
+            <p>
+                <span>【产　　地】</span>韩国
+            </p>
+            <p>
+                <span>【配　　料】</span>详见包装
+            </p>
+            <p>
+                <span>【储存方法】</span>请注意阴凉干燥处，避免阳光直射
+            </p>
+            <p>
+                <span>【保质期限】</span>2020年08月21日
+            </p>
+        </div>
+        <div class="detailContent">
+            <img src="https://cdn.saohuo7.com/product_image_files/170302/price.jpg">
+            <img src="https://cdn.saohuo7.com/product_image_files/171102/cba2bb07-4849-4f6b-8883-f7172e709fa7.jpg"><img src="https://cdn.saohuo7.com/product_image_files/171102/253acb42-307d-4532-a4f5-cbcd10253818.jpg">
+            <img src="https://cdn.saohuo7.com/product_image_files/171102/b3db7544-0903-49e1-a97f-888450ab975b.jpg">
+            <img src="https://cdn.saohuo7.com/product_image_files/171102/d10027bd-09b5-45c3-b4f1-474a01e443cd.jpg">
+            <img src="https://cdn.saohuo7.com/product_image_files/171102/990af601-7e3a-42e3-8019-62dddb51e8d0.jpg">
+            <img src="https://cdn.saohuo7.com/product_image_files/171102/361a8885-0699-43c6-ab59-1cc58b4817f5.jpg">
+            <img src="https://cdn.saohuo7.com/product_image_files/171102/f79cd6b7-bd81-4ab8-8d7d-ca779fa68a76.jpg">
+            <img src="https://cdn.saohuo7.com/product_image_files/171102/1418fa6a-bf8e-4dbe-8a77-f3312a3da7b8.jpg">
+        </div>
+    </div>
+    <div class="productBar">
+        <div class="link">
+            <a href="saohuo.html"><i class="icon iconHome"></i>
+            <h4>首页</h4>
+            </a><a href="cart.html"><i class="icon iconCart"></i>
+            <h4>购物车</h4>
+            <span id="Total">
+                    1
+            </span></a>
+            <div class="price">
+                ¥118.40
+            </div>
+        </div>
+        <a href="javascript:;" class="cart">加入购物车</a>
+    </div>
+    <div class="eat_tanBox">
+        <!----><!----><!---->
+    </div>
+</div>
+<style>
+#noDataView{text-align: center;height: 95px;color: #b2b2b2;margin-bottom: 30px; line-height: 95px;}.bottomBtn{bottom: 30px;}.pf{left: 50%; transform: translateX(-50%);  -webkit-transform: translateX(-50%);}
+</style>
+</body>
+</html>

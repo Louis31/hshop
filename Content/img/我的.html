@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)http://127.0.0.1/hshop/me.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>我的</title>
+
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="target-densitydpi=562.5, width=750, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="./我的_files/baseStyles.css">
+<script src="./我的_files/hm.js"></script><script type="text/javascript" id="zhuge-js" async="" src="./我的_files/zhuge.min.js"></script><script type="text/javascript" src="./我的_files/baseScripts.js"></script>
+<script type="text/javascript" src="./我的_files/vue.js"></script>
+<script type="text/javascript" src="./我的_files/common.js"></script>
+<script type="text/javascript" src="./我的_files/global.js"></script>
+<script type="text/javascript" src="./我的_files/tingyun.js"></script>
+<script type="text/javascript" src="./我的_files/weixin.js"></script>
+<script type="text/javascript" src="./我的_files/webStorageCache.js"></script>
+<style>
+            #pf {
+                z-index:99!important;
+            }
+</style>
+<script>
+            /* Javascript Extension */
+            String.prototype.format = function () {
+                var args = arguments;
+                return this.replace(/\{(\d+)\}/g, function (m, i) {
+                    return args[i];
+                });
+            }
+            /* Vue-Resource Init */
+            Vue.http.options.emulateJSON = true;
+            Vue.http.interceptors.push(function (request, next) {
+                next(function (response) {
+                    if (response.status == 200) {
+                        if (response.body.IsError) {
+                            //toastr.error(response.body.Message);
+                        }
+                        return response;
+                    } else if (response.status == 401) {
+                        if ($.common.isWeiXin()) {
+                            toastr.info("登陆中...");
+                            zhuge.track('点击微信登陆');
+                            location.href = '/Authorization/Auth2?redirUrl={0}'.format(encodeURIComponent(window.location.href));
+                        } else {
+                            zhuge.track('进入注册登录页', { '触发来源': window.location.pathname });
+                            toastr.info("尚未登陆");
+                            //未登录
+                            location.href = '/Account/Login2?redirUrl={0}'.format(encodeURIComponent(window.location.href));
+                        }
+                    } else if (response.status == 403) {
+                        //禁止访问
+                        toastr.info("您的账户存在安全风险,已被限制登录");
+                        //未登录
+                        location.href = '/Account/AccessDenied';
+                    }
+                });
+            });
+            /* Web-Storage-Cache Init */
+            var wsCache = new WebStorageCache()
+            window.wsCache = wsCache;
+            window.hostDomain = 'https://m2.saohuo7.com/';
+            window.imgDomain = 'https://cdn.saohuo7.com/';
+            Vue.prototype.zhugeTrack = function (title, data) {
+                if (data)
+                    zhuge.track(title, data);
+                else
+                    zhuge.track(title);
+            };
+            Vue.prototype.pathname = window.location.pathname;
+            Vue.prototype.initShareData = function (shareData) {
+                loadShareConfig(shareData);
+            };
+            /* Vue Global Variable Init */
+            Vue.prototype.wsCache = window.wsCache;
+            Vue.prototype.getQueryString = function (name, url) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = null;
+                if (!url)
+                    r = window.location.search.substr(1).match(reg);
+                else {
+                    if (url.indexOf("?") != -1) {
+                        url = url.substr(url.indexOf("?"));
+                        r = url.substr(1).match(reg);
+                    }
+                }
+                if (r != null) return decodeURIComponent(r[2]); return null;
+            }
+            Vue.prototype.deleteQueryString = function (url, name) {
+                var reg = new RegExp("([&\?]?)" + name + "=[^&]+(&?)", "g")
+                var newUrl = url.replace(reg, function (a, b, c) {
+                    if (c.length == 0) {
+                        return '';
+                    } else {
+                        return b;
+                    }
+                });
+                return newUrl;
+            };
+            Vue.prototype.setQueryString = function (url, pname, pvalue) {
+                var strNewUrl = new String();
+                var strUrl = url;
+                if (strUrl.indexOf("?") != -1) {
+                    strUrl = strUrl.substr(strUrl.indexOf("?") + 1);
+                    if (strUrl.toLowerCase().indexOf(pname.toLowerCase()) == -1) {
+                        strNewUrl = url + "&" + pname + "=" + pvalue;
+                        return strNewUrl;
+                    } else {
+                        var aParam = strUrl.split("&");
+                        for (var i = 0; i < aParam.length; i++) {
+                            if (aParam[i].substr(0, aParam[i].indexOf("=")).toLowerCase() == pname.toLowerCase()) {
+                                aParam[i] = aParam[i].substr(0, aParam[i].indexOf("=")) + "=" + pvalue;
+                            }
+                        }
+                        strNewUrl = url.substr(0, url.indexOf("?") + 1) + aParam.join("&");
+                        return strNewUrl;
+                    }
+                }
+                else {
+                    strUrl += "?" + pname + "=" + pvalue;
+                    return strUrl
+                }
+            };
+            Vue.prototype.mask = function (str, maskLength) {
+                if (getLength(str) > maskLength) {
+                    return cutstr(str, maskLength);
+                }
+                return str;
+                function cutstr(str, len) {
+                    var str_length = 0;
+                    var str_len = 0;
+                    str_cut = new String();
+                    str_len = str.length;
+                    for (var i = 0; i < str_len; i++) {
+                        a = str.charAt(i);
+                        str_length++;
+                        if (escape(a).length > 4) {
+                            //中文字符的长度经编码之后大于4
+                            str_length++;
+                        }
+                        str_cut = str_cut.concat(a);
+                        if (str_length >= len) {
+                            str_cut = str_cut.concat("...");
+                            return str_cut;
+                        }
+                    }
+                    //如果给定字符串小于指定长度，则返回源字符串；
+                    if (str_length < len) {
+                        return str;
+                    }
+                }
+                function getLength(str) {
+                    ///<summary>获得字符串实际长度，中文2，英文1</summary>
+                    ///<param name="str">要获得长度的字符串</param>
+                    var realLength = 0, len = str.length, charCode = -1;
+                    for (var i = 0; i < len; i++) {
+                        charCode = str.charCodeAt(i);
+                        if (charCode >= 0 && charCode <= 128) realLength += 1;
+                        else realLength += 2;
+                    }
+                    return realLength;
+                }
+            };
+            Vue.prototype.isWechat = function () {
+                return $.common.isWeiXin();
+            }
+            /* ZhugeIO Init */
+            window.zhuge = window.zhuge || []; window.zhuge.methods = "_init debug identify track trackLink trackForm page".split(" ");
+            window.zhuge.factory = function (b) {
+                return function () {
+                    var a = Array.prototype.slice.call(arguments); a.unshift(b);
+                    window.zhuge.push(a); return window.zhuge;
+                }
+            }; for (var i = 0; i < window.zhuge.methods.length; i++) {
+                var key = window.zhuge.methods[i]; window.zhuge[key] = window.zhuge.factory(key);
+            } window.zhuge.load = function (b, x) {
+                if (!document.getElementById("zhuge-js")) {
+                    var a = document.createElement("script"); var verDate = new Date();
+                    var verStr = verDate.getFullYear().toString() + verDate.getMonth().toString() + verDate.getDate().toString();
+                    a.type = "text/javascript"; a.id = "zhuge-js"; a.async = !0; a.src = (location.protocol == 'http:' ? "http://sdk.zhugeio.com/zhuge.min.js?v=" : 'https://zgsdk.zhugeio.com/zhuge.min.js?v=') + verStr;
+                    a.onerror = function () { window.zhuge.identify = window.zhuge.track = function (ename, props, callback) { if (callback && Object.prototype.toString.call(callback) === '[object Function]') callback(); }; };
+                    var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(a, c); window.zhuge._init(b, x)
+                }
+            };
+            window.zhuge.load("80af5e56cdae438097703d0dc6d5806a", {
+                autoTrack: true,
+                debug: true
+            });
+        </script>
+        <style type="text/css">
+            .name .lv{
+                margin-left:8px;
+            }
+             .userHead .itrow {
+                text-align: center;
+                font-size: 28px;
+                padding-top: 10px;
+                color: #fff;
+                line-height: 45px;
+            }
+            .userHead .itrow a{
+                color: #fff;
+            }
+            .clear{
+                clear: both;
+            }
+            .userItem .name {
+                text-align: center;
+                font-size: 28px;
+                padding-top: 10px;
+                color: #d7d7d7;
+                line-height: 90px;
+            }
+        </style>
+</head>
+<body class="show">
+<div id="contentBody" class="wrapper navMask" style="padding-top: 0px;"><div class="userWrap"><div class="userHead"><div style="width: 40%; float: left;"><div style="width: 135px; height: 135px; margin: 50px auto;"><img src="./我的_files/0" style="width: 135px; height: 135px; border-radius: 50%;"></div> <div class="name"><span>Louis.铭</span> <span class="lv">LV.1</span> <br></div></div> <div style="width: 55%; float: right; margin: 50px auto;"><div class="itrow"><span>报单币:</span> <span class="lv">LV.1</span> <br></div> <div class="itrow"><span>购物币:</span> <span class="lv">LV.1</span> <br></div> <div class="itrow"><span>合力币:</span> <span class="lv">LV.1</span> <br></div> <div class="itrow"><a href="http://127.0.0.1/hshop/me.html#">操作</a> <br></div></div></div> <div class="userItem"><div style="width: 50%; height: 90px; float: left; border-right: 1px solid rgb(217, 217, 217);"><div class="name"><span>总业绩A：</span> <span class="lv">10000</span> <br></div></div> <div style="width: 50%; height: 90px; float: right;"><div class="name"><span>总业绩B：</span> <span class="lv">10000</span> <br></div> <div class="clear"></div></div> <div class="userItem"><section><a href="http://127.0.0.1/hshop/me.html#">
+                    层碰
+            <span></span></a></section><section><a href="javascript:;">
+                    量碰
+            <span class="colorBlack">18613142052</span></a></section><section><a href="http://127.0.0.1/Account/About">
+                    合作
+            <span></span></a></section><section><a href="tel:400-821-5297">
+                    点见
+            <span class="colorBlack">400-821-5297</span></a></section></div></div></div> <nav id="pf" class="pf"><ul><li><a href="http://127.0.0.1/hshop/saohuo.html"><i class="icon iconHome"></i> <h4>首页</h4></a></li> <li><a href="http://127.0.0.1/hshop/cart.html"><i class="icon iconCart"></i> <h4>购物车</h4></a><span id="cartAmount">1</span></li> <li class="active"><a href="javascript:void(0);"><i class="icon iconMy"></i> <h4>我的</h4></a></li></ul></nav></div><style>#noDataView{text-align: center;height: 95px;color: #b2b2b2;margin-bottom: 30px; line-height: 95px;}.bottomBtn{bottom: 30px;}.pf{left: 50%; transform: translateX(-50%);  -webkit-transform: translateX(-50%);}</style></body></html>

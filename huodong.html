@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>购物车</title>
+<meta charset="utf-8">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="width=750px, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="bundles/baseStyles.css?v=ShxrDq0TwPSoX86C_3BjAhDlWyPsZ0m1-xMXM2i5vpg1"/>
+<script type="text/javascript" src="bundles/baseScripts.js?v=28tgSWY0rL22Dancb5AxG3xGVK37K2nU3E62SXx5oaY1"></script>
+<link rel="stylesheet" type="text/css" href="css/mui.css">
+<script type="text/javascript" src="bundles/vue.js?v=sbRGonuaAxaGe5lssR8HbadhTFlwmS4O78OlSsMZRH81"></script>
+<script type="text/javascript" src="bundles/common.js?v=MmFkBTCbV-7EXfIwu_PU0k_rEBU1v_SeIueB1gR4exc1"></script>
+<script type="text/javascript" src="bundles/global.js?v=GF4q86rcgkq-1omFrzV8PvMpsYJYcao3tiO6enQawjU1"></script>
+<script type="text/javascript" src="bundles/tingyun.js?v=G6_UzQ6oSWhZCsWb-GvfG8YDLnaRNlUpYwfyQXZh7Po1"></script>
+<script type="text/javascript" src="bundles/weixin.js?v=rU6xLk5lqY7aesqXQvZlWG0nHgQCF47toqQ2568omFw1"></script>
+<script type="text/javascript" src="bundles/webStorageCache.js?v=hmTpKCEBw3EQZHuWmph-Q1yWjJ-0XYuZPZCxO7UCFiI1"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<style>
+            #pf {
+                z-index:99!important;
+            }
+</style>
+<script>
+        /* Javascript Extension */
+        String.prototype.format = function () {
+            var args = arguments;
+            return this.replace(/\{(\d+)\}/g, function (m, i) {
+                return args[i];
+            });
+        }
+        /* Vue-Resource Init */
+        Vue.http.options.emulateJSON = true;
+        Vue.http.interceptors.push(function (request, next) {
+            next(function (response) {
+                if (response.status == 200) {
+                    if (response.body.IsError) {
+                        //toastr.error(response.body.Message);
+                    }
+                    return response;
+                } else if (response.status == 401) {
+                    if ($.common.isWeiXin()) {
+                        toastr.info("登陆中...");
+                        zhuge.track('点击微信登陆');
+                        location.href = '/Authorization/Auth2?redirUrl={0}'.format(encodeURIComponent(window.location.href));
+                    } else {
+                        zhuge.track('进入注册登录页', { '触发来源': window.location.pathname });
+                        toastr.info("尚未登陆");
+                        //未登录
+                        location.href = '/Account/Login2?redirUrl={0}'.format(encodeURIComponent(window.location.href));
+                    }
+                } else if (response.status == 403) {
+                    //禁止访问
+                    toastr.info("您的账户存在安全风险,已被限制登录");
+                    //未登录
+                    location.href = '/Account/AccessDenied';
+                }
+            });
+        });
+        /* Web-Storage-Cache Init */
+        var wsCache = new WebStorageCache()
+        window.wsCache = wsCache;
+        window.hostDomain = 'https://m2.saohuo7.com/';
+        window.imgDomain = 'https://cdn.saohuo7.com/';
+        Vue.prototype.zhugeTrack = function (title, data) {
+            if (data)
+                zhuge.track(title, data);
+            else
+                zhuge.track(title);
+        };
+        Vue.prototype.pathname = window.location.pathname;
+        Vue.prototype.initShareData = function (shareData) {
+            loadShareConfig(shareData);
+        };
+        /* Vue Global Variable Init */
+        Vue.prototype.wsCache = window.wsCache;
+        Vue.prototype.getQueryString = function (name, url) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = null;
+            if (!url)
+                r = window.location.search.substr(1).match(reg);
+            else {
+                if (url.indexOf("?") != -1) {
+                    url = url.substr(url.indexOf("?"));
+                    r = url.substr(1).match(reg);
+                }
+            }
+            if (r != null) return decodeURIComponent(r[2]); return null;
+        }
+        Vue.prototype.deleteQueryString = function (url, name) {
+            var reg = new RegExp("([&\?]?)" + name + "=[^&]+(&?)", "g")
+            var newUrl = url.replace(reg, function (a, b, c) {
+                if (c.length == 0) {
+                    return '';
+                } else {
+                    return b;
+                }
+            });
+            return newUrl;
+        };
+        Vue.prototype.setQueryString = function (url, pname, pvalue) {
+            var strNewUrl = new String();
+            var strUrl = url;
+            if (strUrl.indexOf("?") != -1) {
+                strUrl = strUrl.substr(strUrl.indexOf("?") + 1);
+                if (strUrl.toLowerCase().indexOf(pname.toLowerCase()) == -1) {
+                    strNewUrl = url + "&" + pname + "=" + pvalue;
+                    return strNewUrl;
+                } else {
+                    var aParam = strUrl.split("&");
+                    for (var i = 0; i < aParam.length; i++) {
+                        if (aParam[i].substr(0, aParam[i].indexOf("=")).toLowerCase() == pname.toLowerCase()) {
+                            aParam[i] = aParam[i].substr(0, aParam[i].indexOf("=")) + "=" + pvalue;
+                        }
+                    }
+                    strNewUrl = url.substr(0, url.indexOf("?") + 1) + aParam.join("&");
+                    return strNewUrl;
+                }
+            }
+            else {
+                strUrl += "?" + pname + "=" + pvalue;
+                return strUrl
+            }
+        };
+        Vue.prototype.mask = function (str, maskLength) {
+            if (getLength(str) > maskLength) {
+                return cutstr(str, maskLength);
+            }
+            return str;
+            function cutstr(str, len) {
+                var str_length = 0;
+                var str_len = 0;
+                str_cut = new String();
+                str_len = str.length;
+                for (var i = 0; i < str_len; i++) {
+                    a = str.charAt(i);
+                    str_length++;
+                    if (escape(a).length > 4) {
+                        //中文字符的长度经编码之后大于4
+                        str_length++;
+                    }
+                    str_cut = str_cut.concat(a);
+                    if (str_length >= len) {
+                        str_cut = str_cut.concat("...");
+                        return str_cut;
+                    }
+                }
+                //如果给定字符串小于指定长度，则返回源字符串；
+                if (str_length < len) {
+                    return str;
+                }
+            }
+            function getLength(str) {
+                ///<summary>获得字符串实际长度，中文2，英文1</summary>
+                ///<param name="str">要获得长度的字符串</param>
+                var realLength = 0, len = str.length, charCode = -1;
+                for (var i = 0; i < len; i++) {
+                    charCode = str.charCodeAt(i);
+                    if (charCode >= 0 && charCode <= 128) realLength += 1;
+                    else realLength += 2;
+                }
+                return realLength;
+            }
+        };
+        Vue.prototype.isWechat = function () {
+            return $.common.isWeiXin();
+        }
+        /* ZhugeIO Init */
+            window.zhuge = window.zhuge || []; window.zhuge.methods = "_init debug identify track trackLink trackForm page".split(" ");
+            window.zhuge.factory = function (b) {
+                return function () {
+                    var a = Array.prototype.slice.call(arguments); a.unshift(b);
+                    window.zhuge.push(a); return window.zhuge;
+                }
+            }; for (var i = 0; i < window.zhuge.methods.length; i++) {
+                var key = window.zhuge.methods[i]; window.zhuge[key] = window.zhuge.factory(key);
+            } window.zhuge.load = function (b, x) {
+                if (!document.getElementById("zhuge-js")) {
+                    var a = document.createElement("script"); var verDate = new Date();
+                    var verStr = verDate.getFullYear().toString() + verDate.getMonth().toString() + verDate.getDate().toString();
+                    a.type = "text/javascript"; a.id = "zhuge-js"; a.async = !0; a.src = (location.protocol == 'http:' ? "http://sdk.zhugeio.com/zhuge.min.js?v=" : 'https://zgsdk.zhugeio.com/zhuge.min.js?v=') + verStr;
+                    a.onerror = function () { window.zhuge.identify = window.zhuge.track = function (ename, props, callback) { if (callback && Object.prototype.toString.call(callback) === '[object Function]') callback(); }; };
+                    var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(a, c); window.zhuge._init(b, x)
+                }
+            };
+            window.zhuge.load("80af5e56cdae438097703d0dc6d5806a", {
+                autoTrack: true,
+                debug: true
+            });
+    </script>
+<script type="text/javascript" src="/Resources/plugin/linq-2.2.0.2/jquery.linq.min.js?_v=2"></script>
+<style>
+        .name span {
+            position: relative;
+            top: -3px;
+        }
+        .productList li .name {
+            height: 82px;
+            line-height: 41px;
+        }
+        .wrapper {
+            padding-top: 90px !important;
+        }
+
+        .topNav {
+            height: 90px;
+            top: 91px;
+            width: 100%;
+            max-width: 750px;
+            min-width: 300px;
+            background: #fff;
+            border-bottom: 1px solid #d9d9d9;
+            z-index: 100;
+            position: fixed;
+        }
+        .topNav ul{
+            line-height: 90px;
+            height: 90px;
+            display: list-item;
+            overflow-y: none;
+            overflow:scroll;
+        }
+        .topNav .rowc{
+            line-height: 90px;
+            height: 90px;
+            display: list-item;
+        }
+        .topNav li{
+            width:120px;
+            line-height: 90px;
+            color: #000;
+            text-align: center;
+            font-size: 28px;
+            float: left;
+        }
+
+        .shop-scroll-wrapper{
+                position: relative;
+                bottom: auto
+        }
+        .shop-active{
+            color: #ff5252;
+            border-bottom: 2px solid #007aff;
+            background: none;
+        }
+        .font_nav1{
+            font-size: 22px;
+        }
+        .nav_search input{
+            background: none;
+            border: none;
+            width: 80%;
+            height: 50px;
+            margin: 7.5px auto;
+            font-size: 25px;
+            line-height: 50px;
+        }
+</style>
+</head>
+<body class="show">
+<div id="contentBody" class="wrapper topMask" style="padding-top: 0px;">
+    <div class="topBar" style="background-color: #ff5252;">
+        <div style="width: 70%;height:60px;border-radius: 25px;background-color: #fff;margin: 15px auto;">
+            <input placeholder="sousuo" type="text" name="" style="background: none;
+            border: none;
+            width: 80%;
+            height: 50px;
+             font-size: 25px;
+            margin: 7.5px auto;
+            line-height: 50px;" class="nav_search">
+        </div>
+        <a href="javascript:window.history.back(-1);" class="back"><i class="icon"></i></a>
+    </div>
+    <div style="background-color: #fff;" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <div class="mui-scroll">
+            <a class="mui-control-item mui-active">
+                                全部
+            </a>
+            <a class="mui-control-item">
+              热点
+            </a>
+            <a class="mui-control-item">
+               北京
+            </a>
+            <a class="mui-control-item">
+               社会
+            </a>
+            <a class="mui-control-item">
+               娱乐
+            </a>
+            <a class="mui-control-item">
+               科技
+            </a>
+             <a class="mui-control-item">
+              热点
+            </a>
+            <a class="mui-control-item">
+               北京
+            </a>
+            <a class="mui-control-item">
+               社会
+            </a>
+            <a class="mui-control-item">
+               娱乐
+            </a>
+            <a class="mui-control-item">
+               科技
+            </a>
+             <a class="mui-control-item">
+              热点
+            </a>
+            <a class="mui-control-item">
+               北京
+            </a>
+            <a class="mui-control-item">
+               社会
+            </a>
+            <a class="mui-control-item">
+               娱乐
+            </a>
+            <a class="mui-control-item">
+               科技
+            </a>
+        </div>
+    </div>
+     <div style="background-color: #fff;" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <div class="mui-scroll">
+         <a class="mui-control-item mui-active-nav font_nav1">
+                                会员礼包
+            </a>
+            <a class="mui-control-item font_nav1">
+              积分专区
+            </a>
+        </div>
+    </div>
+
+    <div class="productList clearfix">
+        <ul id="productlist" class="productlist">
+            <li><a href="/Products/Product?id=940472604177727488"><img src="https://cdn.saohuo7.com/product_image_files/171212/c7f0d591-14e4-4d2b-967c-45585cfdd709.jpg"><span class="disable">已抢光</span></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        美国Blistex碧唇 小蓝罐专业修护润唇膏 7g【限购一份】
+            </div>
+            <div class="price">
+                        ¥4.90
+                <del>¥39.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=940468868227268608"><img src="https://cdn.saohuo7.com/product_image_files/171212/6ea14880-9067-4af2-9508-534d162db6b1.jpg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        日本Dr.Ci.Labo城野医生 收缩毛孔化妆水 100ml【限购1份】
+            </div>
+            <div class="price">
+                        ¥48.00
+                <del>¥135.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=940825077740470272"><img src="https://cdn.saohuo7.com/product_image_files/171213/023774a6-2dbc-4a7b-a00c-5a90ea870369.jpeg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        法国Avene雅漾 舒护活泉水喷雾150ml【限购一件】
+            </div>
+            <div class="price">
+                        ¥42.00
+                <del>¥89.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=944025875576258560"><img src="https://cdn.saohuo7.com/product_image_files/171222/56c1c74b-19ad-4b3a-8684-fededf69d7ab.jpg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        日本Canmake井田 花瓣雕刻五色腮红 哑光 #02玫瑰色 6g
+            </div>
+            <div class="price">
+                        ¥53.00
+                <del>¥85.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=944110937562939392"><img src="https://cdn.saohuo7.com/product_image_files/171222/29e5f9f0-1d74-40b6-93b4-c55663249fcb.jpg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        日本Canmake井田 花瓣雕刻五色腮红 珠光#01桃花芙蓉 6g
+            </div>
+            <div class="price">
+                        ¥55.00
+                <del>¥85.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=944023632252764160"><img src="https://cdn.saohuo7.com/product_image_files/171222/d7047595-2145-44ea-b924-db0e519b568a.jpg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        日本Canmake井田 完美雕刻五色眼影 #05淡雅米粽
+            </div>
+            <div class="price">
+                        ¥56.00
+                <del>¥85.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=944032606683398144"><img src="https://cdn.saohuo7.com/product_image_files/171222/ccf8d2bb-e4d6-4042-8779-a17c1ad3bf47.jpg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        日本Canmake井田 完美雕刻五色眼影 #10暖粉棕色
+            </div>
+            <div class="price">
+                        ¥56.00
+                <del>¥85.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=943769047437148160"><img src="https://cdn.saohuo7.com/product_image_files/171221/f57c9069-c360-4ef6-80c4-1d8efcbe85b4.jpg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        日本Canmake井田 完美雕刻五色眼影 #07红莓蛋糕
+            </div>
+            <div class="price">
+                        ¥56.00
+                <del>¥85.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=931444615486111744"><img src="https://cdn.saohuo7.com/product_image_files/171117/2ef47937-2616-4e11-865f-901d0e028283.jpg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        日本Esprincess 无硅洗护套装 600ml*2
+            </div>
+            <div class="price">
+                        ¥78.00
+                <del>¥95.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+            <li><a href="/Products/Product?id=932541192929804288"><img src="https://cdn.saohuo7.com/product_image_files/171120/24ac40ce-aca7-4790-af2c-4cd91e88546f.jpg"><!----></a>
+            <div class="name ohBox ohBox2">
+                <span>自营</span>
+                        日本SANA莎娜 豆乳美肌三件套
+            </div>
+            <div class="price">
+                        ¥148.00
+                <del>¥176.00</del>
+            </div>
+            <a href="javascript:;" class="addCart"><i class="icon"></i></a></li>
+        </ul>
+    </div>
+    <!---->
+    <div class="loadBottom" style="display: none;">
+        <div class="loading">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <div class="bottomBtn">
+        <a href="/Cart/Index" class="cartBtn"><i class="icon iconCart"></i><!----></a><a href="javascript:;" class="topBtn"><i class="icon iconTop" style="display: none;"></i></a>
+    </div>
+</div>
+<script>
+        var shareData = {
+            title: "人气美食热卖中，正品特价等你来",
+            desc: "扫货特卖在手，天下美食我都有。不用剁手，成吨网红美食全抱走。100%正品哦~",
+            url: "https://m2.saohuo7.com/products/productpromotion?id=272&qc=",
+            imgUrl: "https://m2.saohuo7.com/Content/img/logo.png",
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+            }
+        };
+        loadShareConfig(shareData);
+    </script>
+<script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?51bb5558f38d8c16025598232bcc6008";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+<script>
+        var contentBody = new Vue({
+            el: '#contentBody',
+            mounted: function () {
+                this.$nextTick(function () {
+                    this.loadCartAmount();
+                });
+                this.$nextTick(function () {
+                    this.loadProducts();
+                });
+            },
+            data: {
+                searchHistory: [],
+                data_: [],
+                page: 1,
+                isLoading: false,
+                isFirstLoading: true,
+                loadResult: 0,
+                cartAmount: 0,
+                collectionDetail: null,
+            },
+            computed: {
+                data: {
+                    get: function () {
+                        return this.data_;
+                    },
+                    set: function (v) {
+                        this.data_ = this.data_.concat(v);
+                    }
+                },
+                promotionId: {
+                    get: function () {
+                        return this.getQueryString("id");
+                    },
+                },
+            },
+            methods: {
+                loadCartAmount: function () {
+                    var _this = this;
+                    this.$http.get("/API/Cart/Count").then(function (res) {
+                        _this.cartAmount = res.body.Data;
+                    });
+                },
+                addCart: function (product) {
+                    $.common.loadCircle();
+                    var _this = this;
+                    var paramater = {
+                        productId: product.id,
+                        quantity: 1
+                    };
+                    this.$http.post("/API/Cart", { paramater: JSON.stringify(paramater) }).then(function (res) {
+                        if (!res.body.IsError) {
+                            _this.cartAmount = res.body.Data;
+                            toastr.info("加入购物车成功");
+                            zhuge.track("加入购物车", {
+                                "商品名称": product.name,
+                                "商品分类": product.brandName,
+                                "原价": product.originPrice,
+                                "现价": product.price,
+                                "品牌": product.brandName,
+                                "产地": product.originName
+                            });
+                            $.common.loadingHide();
+                        } else {
+                            $.common.loadingHide();
+                            toastr.info(res.body.Message);
+                        }
+                    }, function (res) {
+                        $.common.loadingHide();
+                        console.log(res);
+                    });
+                },
+                loadProducts: function () {
+                    if (this.isLoading == true) {
+                        return;
+                    }
+                    var _this = this;
+                    if (this.page != 0) {
+                        this.isLoading = true;
+                    }
+                    var paramaters = {
+                        page: this.page,
+                        promotionId: this.promotionId
+                    };
+                    this.$http.get("/API/Products/PromotionProducts", { params: paramaters }).then(function (res) {
+                        if (!res.body.IsError) {
+                            if (_this.isFirstLoading) {
+                                _this.collectionDetail = res.body.Data;
+                            }
+                            _this.page++;
+                            if (!res || res.body.Data.products.length === 0 || res.body.Data.products.length < 10) {
+                                _this.loadResult = 1;
+                            }
+                            _this.data = res.body.Data.products;
+                            _this.isLoading = false;
+                            _this.isFirstLoading = false;
+                            $.common.loadingHide();
+                        } else {
+                            toastr.info(res.body.Message);
+                        }
+                    }, function (res) {
+                        console.log(res);
+                        //Error
+                    });
+                },
+            }
+        });
+        $(window).scroll(function () {
+            if ($(document).height() - $(this).scrollTop() - $(this).height() < 100) {
+                if (contentBody.loadResult == 1) {
+                    return;
+                }
+                contentBody.loadProducts();
+            }
+        });
+    </script>
+<style>
+#noDataView{text-align: center;height: 95px;color: #b2b2b2;margin-bottom: 30px; line-height: 95px;}.bottomBtn{bottom: 30px;}.pf{left: 50%; transform: translateX(-50%);  -webkit-transform: translateX(-50%);}
+</style>
+</body>
+</html>
